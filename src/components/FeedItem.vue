@@ -13,19 +13,7 @@
             {{ feed.createdAt?.toString() }}
           </p>
         </div>
-
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            ><Button variant="ghost" class="w-10 h-10 p-0">
-              <MoreVertical /> </Button
-          ></DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem class="cursor-pointer">수정</DropdownMenuItem>
-            <DropdownMenuItem class="text-destructive cursor-pointer"
-              >삭제</DropdownMenuItem
-            >
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <FeedDropdownMenu :feed-id="feed.feed_id" />
       </div>
     </div>
     <p>{{ feed.contents }}</p>
@@ -47,13 +35,8 @@
 import { Feed } from '@/types';
 import { defineProps } from 'vue';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { MoreVertical, Heart, MessageCircle } from 'lucide-vue-next';
+import FeedDropdownMenu from './FeedDropdownMenu.vue';
+import { Heart, MessageCircle } from 'lucide-vue-next';
 import { Button } from './ui/button';
 defineProps({
   feed: {

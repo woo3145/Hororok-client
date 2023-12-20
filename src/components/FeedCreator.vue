@@ -9,7 +9,7 @@
         class="h-[140px] text-lg"
         placeholder="내용을 입력해주세요."
       />
-      <Button type="submit" class="absolute bottom-2 right-8">Post Feed</Button>
+      <Button type="submit" class="absolute bottom-4 right-8">Post Feed</Button>
     </form>
   </div>
 </template>
