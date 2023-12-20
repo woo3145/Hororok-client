@@ -12,9 +12,9 @@
 <script setup lang="ts">
 import FeedCreator from '@/components/FeedCreator.vue';
 import { onMounted, ref } from 'vue';
-import axios from 'axios';
 import FeedItem from '@/components/FeedItem.vue';
 import { Feed } from '../types';
+import { getFeeds } from '@/api/feeds';
 
 const feeds = ref<Feed[]>([
   {
@@ -33,7 +33,7 @@ const feeds = ref<Feed[]>([
 
 const fetchFeeds = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/feeds');
+    const response = await getFeeds();
     throw new Error('임시 에러');
     feeds.value = response.data.feeds;
   } catch (error) {

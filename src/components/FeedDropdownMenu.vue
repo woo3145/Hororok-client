@@ -24,7 +24,7 @@
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>취소</AlertDialogCancel>
-            <AlertDialogAction @click="deleteFeed">확인</AlertDialogAction>
+            <AlertDialogAction @click="handleDelete">확인</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -52,7 +52,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { MoreVertical } from 'lucide-vue-next';
 import { Button } from './ui/button';
-import axios from 'axios';
+import { deleteFeed } from '../api/feeds';
 
 const handleSelect = (event: Event) => {
   event.preventDefault();
@@ -65,9 +65,9 @@ const props = defineProps({
   },
 });
 
-const deleteFeed = async () => {
+const handleDelete = async () => {
   try {
-    await axios.delete(`http://localhost:8000/feeds/${props.feedId}`);
+    await deleteFeed(props.feedId);
     console.log('Feed deleted successfully');
   } catch (error) {
     console.error('Error deleting the feed:', error);

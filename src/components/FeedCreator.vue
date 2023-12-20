@@ -18,7 +18,7 @@
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { ref } from 'vue';
-import axios from 'axios';
+import { postFeed } from '@/api/feeds';
 
 interface FeedData {
   contents: string;
@@ -33,10 +33,7 @@ const submitFeed = async () => {
   }
 
   try {
-    console.log(feedData.value.contents);
-    const response = await axios.post('http://localhost:8000/feeds', {
-      contents: feedData.value.contents,
-    });
+    const response = await postFeed(feedData.value.contents);
     console.log(response.data);
     feedData.value.contents = '';
   } catch (error) {
