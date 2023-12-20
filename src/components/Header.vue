@@ -3,7 +3,7 @@
     <a href="#/" class="text-xl font-semibold">Hororok</a>
 
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger class="flex">
         <Avatar>
           <AvatarImage
             src="https://github.com/radix-vue.png"
@@ -17,7 +17,7 @@
           <p class="text-sm font-medium leading-none">woo3145</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <a href="/#/profile">
+        <a href="#/profile">
           <DropdownMenuItem class="cursor-pointer"> Profile </DropdownMenuItem>
         </a>
 
