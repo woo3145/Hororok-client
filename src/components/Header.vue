@@ -1,5 +1,7 @@
 <template>
-  <header class="flex items-center justify-between w-full py-3 px-8 shadow-md">
+  <header
+    class="absolute top-0 z-40 flex items-center justify-between w-full h-16 px-8 shadow-md bg-background"
+  >
     <a href="#/" class="text-xl font-semibold">Hororok</a>
 
     <DropdownMenu>
