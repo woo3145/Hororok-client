@@ -22,7 +22,11 @@ export const getFeed = async (feedId: number) => {
 
 export const postFeed = async (contents: string) => {
   try {
-    const response = await axios.post(BASE_URL, { contents });
+    const response = await axios.post(
+      BASE_URL,
+      { contents },
+      { withCredentials: true }
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -31,7 +35,9 @@ export const postFeed = async (contents: string) => {
 
 export const deleteFeed = async (feedId: number) => {
   try {
-    const response = await axios.delete(`${BASE_URL}/${feedId}`);
+    const response = await axios.delete(`${BASE_URL}/${feedId}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     throw error;
