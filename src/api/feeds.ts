@@ -43,3 +43,25 @@ export const deleteFeed = async (feedId: number) => {
     throw error;
   }
 };
+
+export const likeFeed = async (feedId: number) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/${feedId}/likes`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const unlikeFeed = async (feedId: number) => {
+  try {
+    const response = await axios.delete(`${BASE_URL}/${feedId}/likes`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
