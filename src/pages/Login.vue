@@ -3,7 +3,7 @@
     class="absolute top-0 container bg-background z-50 h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0"
   >
     <a
-      href="#/"
+      href="/"
       :class="
         cn(
           buttonVariants({ variant: 'ghost' }),

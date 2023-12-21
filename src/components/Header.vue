@@ -2,7 +2,7 @@
   <header
     class="absolute top-0 z-40 flex items-center justify-between w-full h-16 px-8 shadow-md bg-background"
   >
-    <a href="#/" class="text-xl font-semibold">Hororok</a>
+    <a href="/" class="text-xl font-semibold">Hororok</a>
 
     <DropdownMenu>
       <DropdownMenuTrigger class="flex">
@@ -19,7 +19,7 @@
           <p class="text-sm font-medium leading-none">woo3145</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <a href="#/profile">
+        <a href="/profile">
           <DropdownMenuItem class="cursor-pointer"> Profile </DropdownMenuItem>
         </a>
 
