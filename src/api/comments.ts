@@ -24,30 +24,22 @@ export const postComment = async (feedId: number, contents: string) => {
   }
 };
 
-export const editComment = async (
-  feedId: number,
-  commentId: number,
-  contents: string
-) => {
+export const editComment = async (commentId: number, contents: string) => {
   try {
-    const response = await axios.patch(
-      `${BASE_URL}/${feedId}/comments/${commentId}`,
-      { contents }
-    );
+    const response = await axios.patch(`${BASE_URL}/comments/${commentId}`, {
+      contents,
+    });
     return response.data;
   } catch (error) {
     throw error;
   }
 };
 
-export const deleteComment = async (feedId: number, commentId: number) => {
+export const deleteComment = async (commentId: number) => {
   try {
-    const response = await axios.delete(
-      `${BASE_URL}/${feedId}/comments/${commentId}`,
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.delete(`${BASE_URL}/comments/${commentId}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     throw error;
