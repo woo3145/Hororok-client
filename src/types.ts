@@ -9,4 +9,7 @@ export interface Feed {
   contents: string;
   user: User;
   createdAt: Date;
+
+  likes_cnt: number;
+  comments_cnt: number;
 }

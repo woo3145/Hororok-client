@@ -21,7 +21,7 @@
     <div class="flex items-center gap-2">
       <Button variant="ghost" class="h-10 p-2 gap-1">
         <Heart />
-        <span class="text-sm">4</span>
+        <span class="text-sm">{{ feed.likes_cnt }}</span>
       </Button>
       <Button variant="ghost" class="h-10 p-2 gap-1">
         <MessageCircle />

@@ -22,12 +22,18 @@ const feeds = ref<Feed[]>([
     contents: 'hihi',
     createdAt: new Date(),
     user: { user_id: 1, name: 'woo3145' },
+
+    likes_cnt: 4,
+    comments_cnt: 2,
   },
   {
     feed_id: 2,
     contents: '졸립다',
     createdAt: new Date(),
     user: { user_id: 1, name: 'woo3145' },
+
+    likes_cnt: 2,
+    comments_cnt: 4,
   },
 ]);
 
