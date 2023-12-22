@@ -3,12 +3,14 @@
   <div class="pt-16">
     <router-view />
   </div>
+  <Toaster />
 </template>
 
 <script setup lang="ts">
 import Header from '@/components/Header.vue';
 import { useUserStore } from '@/stores/userStore';
 import { onMounted } from 'vue';
+import Toaster from '@/components/ui/toast/Toaster.vue';
 
 const userStore = useUserStore();
 userStore.fetchCurrentUser();

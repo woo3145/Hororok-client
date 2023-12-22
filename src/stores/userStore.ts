@@ -1,9 +1,14 @@
 // stores/userStore.js 또는 stores/userStore.ts
 import { getCurrentUser } from '@/api/users';
+import { User } from '@/types';
 import { defineStore } from 'pinia';
 
+interface State {
+  currentUser: User | null;
+}
+
 export const useUserStore = defineStore('user', {
-  state: () => ({
+  state: (): State => ({
     currentUser: null,
   }),
   getters: {

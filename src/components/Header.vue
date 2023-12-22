@@ -4,7 +4,7 @@
   >
     <a href="/" class="text-xl font-semibold">Hororok</a>
 
-    <DropdownMenu v-if="userStore.isLoggedIn">
+    <DropdownMenu v-if="userStore.currentUser">
       <DropdownMenuTrigger class="flex">
         <Avatar>
           <AvatarImage
@@ -16,7 +16,9 @@
       </DropdownMenuTrigger>
       <DropdownMenuContent class="w-56" align="end">
         <DropdownMenuLabel class="font-normal flex">
-          <p class="text-sm font-medium leading-none">woo3145</p>
+          <p class="text-sm font-medium leading-none">
+            {{ userStore.currentUser.name }}
+          </p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <a href="/profile">

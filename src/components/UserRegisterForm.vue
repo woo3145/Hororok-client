@@ -119,6 +119,9 @@ import {
 import { register } from '@/api/auth';
 import { AxiosError } from 'axios';
 import { useRouter } from 'vue-router';
+import { useToast } from '@/components/ui/toast/use-toast';
+
+const { toast } = useToast();
 
 const isLoading = ref(false);
 const name = ref('');
@@ -143,6 +146,9 @@ async function onSubmit(event: Event) {
       nickname: nickname.value,
       birth: new Date(birth.value),
       gender: gender.value,
+    });
+    toast({
+      description: '성공적으로 회원가입을 하였습니다.',
     });
 
     router.push('/login');
