@@ -1,6 +1,5 @@
-// stores/userStore.js 또는 stores/userStore.ts
 import { logout as _logout } from '@/api/auth';
-import { getCurrentUser } from '@/api/users';
+import { getCurrentUser, editUser, EditUserInput } from '@/api/users';
 import { User } from '@/types';
 import { defineStore } from 'pinia';
 
@@ -33,6 +32,19 @@ export const useUserStore = defineStore('user', {
       } catch (e) {
         this.currentUser = null;
       }
+    },
+
+    async updateProfile(userId: number, data: EditUserInput) {
+      try {
+        const res = await editUser(userId, data);
+        this.currentUser = {
+          ...this.currentUser,
+          name: data.name ?? this.currentUser.name,
+          nickname: data.nickname ?? this.currentUser.nickname,
+          birth: data.birth ?? this.currentUser.birth,
+          gender: data.gender ?? this.currentUser.gender,
+        };
+      } catch (e) {}
     },
   },
 });

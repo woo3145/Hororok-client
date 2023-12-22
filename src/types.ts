@@ -6,6 +6,9 @@ export interface User {
   nickname: string;
   birth: Date;
   gender: string;
+
+  followers_cnt: number;
+  following_cnt: number;
 }
 
 export interface Feed {

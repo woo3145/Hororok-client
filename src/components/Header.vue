@@ -24,7 +24,9 @@
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <router-link :to="`/users/${userStore.currentUser.user_id}`">
-          <DropdownMenuItem class="cursor-pointer"> Profile </DropdownMenuItem>
+          <DropdownMenuItem class="cursor-pointer">
+            마이페이지
+          </DropdownMenuItem>
         </router-link>
         <DropdownMenuItem
           @click="userStore.logout"

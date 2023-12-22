@@ -1,5 +1,7 @@
 <template>
-  <div class="feed-item space-y-4 rounded-md px-6 py-6 bg-background border">
+  <div
+    class="feed-item space-y-4 rounded-md px-6 py-6 bg-background border cursor-pointer"
+  >
     <div class="flex items-center gap-4">
       <Avatar class="shrink-0">
         <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />

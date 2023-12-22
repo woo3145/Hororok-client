@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full max-w-screen-lg mx-auto py-12">
+  <div class="w-full max-w-screen-md mx-auto py-12">
     <FeedCreator />
     <div class="py-12 space-y-4">
       <div v-for="feed in feeds" :key="feed.feed_id">
@@ -28,6 +28,9 @@ const feeds = ref<Feed[]>([
       nickname: 'hhh',
       birth: new Date(),
       gender: 'M',
+
+      followers_cnt: 100000,
+      following_cnt: 100000,
     },
 
     likes_cnt: 4,
@@ -44,6 +47,8 @@ const feeds = ref<Feed[]>([
       nickname: 'hhh',
       birth: new Date(),
       gender: 'M',
+      followers_cnt: 100000,
+      following_cnt: 100000,
     },
 
     likes_cnt: 2,

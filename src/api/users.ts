@@ -31,7 +31,7 @@ export const getUser = async (userId: number) => {
   }
 };
 
-interface EditUserInput {
+export interface EditUserInput {
   password?: string;
   name?: string;
   nickname?: string;
@@ -41,7 +41,7 @@ interface EditUserInput {
 
 export const editUser = async (userId: number, data: EditUserInput) => {
   try {
-    const response = await axios.post(`${BASE_URL}/${userId}`, data, {
+    const response = await axios.patch(`${BASE_URL}/${userId}`, data, {
       withCredentials: true,
     });
     return response.data;
