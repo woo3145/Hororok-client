@@ -1,7 +1,11 @@
 // types.ts
 export interface User {
   user_id: number;
+  id: string;
   name: string;
+  nickname: string;
+  birth: Date;
+  gender: string;
 }
 
 export interface Feed {

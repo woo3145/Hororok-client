@@ -20,7 +20,14 @@ const feeds = ref<Feed[]>([
     feed_id: 1,
     contents: 'hihi',
     createdAt: new Date(),
-    user: { user_id: 1, name: 'woo3145' },
+    user: {
+      user_id: 1,
+      id: '3145',
+      name: 'woo3145',
+      nickname: 'hhh',
+      birth: new Date(),
+      gender: 'M',
+    },
 
     likes_cnt: 4,
     comments_cnt: 2,
@@ -29,7 +36,14 @@ const feeds = ref<Feed[]>([
     feed_id: 2,
     contents: '졸립다',
     createdAt: new Date(),
-    user: { user_id: 1, name: 'woo3145' },
+    user: {
+      user_id: 1,
+      id: '3145',
+      name: 'woo3145',
+      nickname: 'hhh',
+      birth: new Date(),
+      gender: 'M',
+    },
 
     likes_cnt: 2,
     comments_cnt: 4,

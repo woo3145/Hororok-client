@@ -38,9 +38,9 @@
           <span class="text-sm text-foreground/70"
             >계정이 아직 없으신가요?</span
           >
-          <a href="/register">
+          <router-link to="/register">
             <Button variant="link" type="button">회원가입</Button>
-          </a>
+          </router-link>
         </div>
       </div>
     </form>

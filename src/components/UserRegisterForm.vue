@@ -92,9 +92,9 @@
           <span class="text-sm text-foreground/70"
             >이미 계정이 있으신가요?</span
           >
-          <a href="/login">
+          <router-link to="/login">
             <Button variant="link" type="button">로그인</Button>
-          </a>
+          </router-link>
         </div>
       </div>
     </form>

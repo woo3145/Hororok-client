@@ -2,7 +2,9 @@
   <header
     class="absolute top-0 z-40 flex items-center justify-between w-full h-16 px-8 shadow-md bg-background"
   >
-    <a href="/" class="text-xl font-semibold">Hororok</a>
+    <router-link to="/">
+      <Button variant="ghost" class="text-xl font-semibold">Hororok</Button>
+    </router-link>
 
     <DropdownMenu v-if="userStore.currentUser">
       <DropdownMenuTrigger class="flex">
@@ -21,10 +23,9 @@
           </p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <a href="/profile">
+        <router-link :to="`/users/${userStore.currentUser.user_id}`">
           <DropdownMenuItem class="cursor-pointer"> Profile </DropdownMenuItem>
-        </a>
-
+        </router-link>
         <DropdownMenuItem
           @click="userStore.logout"
           class="text-destructive cursor-pointer"
@@ -34,9 +35,9 @@
       </DropdownMenuContent>
     </DropdownMenu>
     <div v-else>
-      <a href="/login">
+      <router-link to="/login">
         <Button>로그인</Button>
-      </a>
+      </router-link>
     </div>
   </header>
 </template>
