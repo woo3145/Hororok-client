@@ -1,4 +1,5 @@
 // stores/userStore.js 또는 stores/userStore.ts
+import { logout as _logout } from '@/api/auth';
 import { getCurrentUser } from '@/api/users';
 import { User } from '@/types';
 import { defineStore } from 'pinia';
@@ -18,10 +19,18 @@ export const useUserStore = defineStore('user', {
     async fetchCurrentUser() {
       try {
         const response = await getCurrentUser();
-        console.log(response);
         this.currentUser = response.user;
       } catch (error) {
         console.error('Error fetching current user:', error);
+        this.currentUser = null;
+      }
+    },
+
+    async logout() {
+      try {
+        await _logout();
+        this.currentUser = null;
+      } catch (e) {
         this.currentUser = null;
       }
     },

@@ -54,3 +54,14 @@ export const register = async ({
     throw error;
   }
 };
+
+export const logout = async () => {
+  try {
+    const response = await axios.post(`${BASE_URL}/logout`, null, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

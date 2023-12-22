@@ -25,7 +25,10 @@
           <DropdownMenuItem class="cursor-pointer"> Profile </DropdownMenuItem>
         </a>
 
-        <DropdownMenuItem class="text-destructive cursor-pointer">
+        <DropdownMenuItem
+          @click="userStore.logout"
+          class="text-destructive cursor-pointer"
+        >
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>
