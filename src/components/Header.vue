@@ -4,7 +4,7 @@
   >
     <a href="/" class="text-xl font-semibold">Hororok</a>
 
-    <DropdownMenu>
+    <DropdownMenu v-if="userStore.isLoggedIn">
       <DropdownMenuTrigger class="flex">
         <Avatar>
           <AvatarImage
@@ -28,6 +28,11 @@
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    <div v-else>
+      <a href="/login">
+        <Button>로그인</Button>
+      </a>
+    </div>
   </header>
 </template>
 
@@ -41,4 +46,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useUserStore } from '@/stores/userStore';
+import { Button } from './ui/button';
+
+const userStore = useUserStore();
 </script>

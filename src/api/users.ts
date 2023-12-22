@@ -11,6 +11,17 @@ export const getUsers = async () => {
   }
 };
 
+export const getCurrentUser = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/current`, {
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getUser = async (userId: number) => {
   try {
     const response = await axios.get(`${BASE_URL}/${userId}`);
