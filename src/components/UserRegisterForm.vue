@@ -12,6 +12,7 @@
               auto-capitalize="none"
               auto-correct="off"
               :disabled="isLoading"
+              v-model="name"
             />
           </div>
           <div class="grid gap-1">
@@ -23,6 +24,7 @@
               auto-capitalize="none"
               auto-correct="off"
               :disabled="isLoading"
+              v-model="nickname"
             />
           </div>
         </div>
@@ -30,17 +32,18 @@
           <div class="grid gap-1">
             <Label for="birth"> 생일 </Label>
             <Input
-              id="nickname"
+              id="birth"
               type="date"
               placeholder="생일"
               auto-capitalize="none"
               auto-correct="off"
               :disabled="isLoading"
+              v-model="birth"
             />
           </div>
           <div class="grid gap-1">
             <Label for="gender"> 성별 </Label>
-            <Select>
+            <Select v-model="gender" default-value="M">
               <SelectTrigger>
                 <SelectValue placeholder="성별" />
               </SelectTrigger>
@@ -63,6 +66,7 @@
             auto-complete="id"
             auto-correct="off"
             :disabled="isLoading"
+            v-model="id"
           />
         </div>
         <div class="grid gap-1">
@@ -74,12 +78,16 @@
             auto-capitalize="none"
             auto-correct="off"
             :disabled="isLoading"
+            v-model="password"
           />
         </div>
         <Button :disabled="isLoading">
           <Loader2 v-if="isLoading" class="mr-2 h-4 w-4 animate-spin" />
           회원가입
         </Button>
+        <p v-if="errorMessage" class="text-sm text-destructive">
+          {{ errorMessage }}
+        </p>
         <div class="mx-auto">
           <span class="text-sm text-foreground/70"
             >이미 계정이 있으신가요?</span
@@ -108,16 +116,45 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-// import { register } from '@/api/auth';
+import { register } from '@/api/auth';
+import { AxiosError } from 'axios';
+import { useRouter } from 'vue-router';
 
 const isLoading = ref(false);
+const name = ref('');
+const nickname = ref('');
+const birth = ref('');
+const gender = ref<'M' | 'W'>('M');
+const id = ref('');
+const password = ref('');
+const errorMessage = ref('');
+const router = useRouter();
+
 async function onSubmit(event: Event) {
   event.preventDefault();
-  // const res = await register({});
   isLoading.value = true;
+  errorMessage.value = '';
 
-  setTimeout(() => {
+  try {
+    await register({
+      id: id.value,
+      password: password.value,
+      name: name.value,
+      nickname: nickname.value,
+      birth: new Date(birth.value),
+      gender: gender.value,
+    });
+
+    router.push('/login');
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error);
+      errorMessage.value = error.response?.data?.message || '회원가입 실패';
+    } else if (error instanceof Error) {
+      errorMessage.value = error.message || '회원가입 실패';
+    }
+  } finally {
     isLoading.value = false;
-  }, 3000);
+  }
 }
 </script>

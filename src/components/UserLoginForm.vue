@@ -83,6 +83,8 @@ async function onSubmit(event: Event) {
     if (error instanceof AxiosError) {
       console.log(error);
       errorMessage.value = error.response?.data?.message || '로그인 실패';
+    } else if (error instanceof Error) {
+      errorMessage.value = error.message || '로그인 실패';
     }
   } finally {
     isLoading.value = false;
