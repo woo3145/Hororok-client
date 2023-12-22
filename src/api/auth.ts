@@ -9,7 +9,14 @@ interface LoginInput {
 
 export const login = async ({ id, password }: LoginInput) => {
   try {
-    const response = await axios.post(BASE_URL, { id, pw: password });
+    const response = await axios.post(
+      `${BASE_URL}/login`,
+      {
+        id,
+        pw: password,
+      },
+      { withCredentials: true }
+    );
     return response.data;
   } catch (error) {
     throw error;
@@ -34,7 +41,7 @@ export const register = async ({
   gender,
 }: RegisterInput) => {
   try {
-    const response = await axios.post(BASE_URL, {
+    const response = await axios.post(`${BASE_URL}/register`, {
       id,
       pw: password,
       name,
