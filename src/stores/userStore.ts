@@ -1,15 +1,22 @@
 import { logout as _logout } from '@/api/auth';
-import { getCurrentUser, editUser, EditUserInput } from '@/api/users';
+import {
+  getCurrentUser,
+  editUser,
+  EditUserInput,
+  getFollowing,
+} from '@/api/users';
 import { User } from '@/types';
 import { defineStore } from 'pinia';
 
 interface State {
   currentUser: User | null;
+  followings: User[] | null;
 }
 
 export const useUserStore = defineStore('user', {
   state: (): State => ({
     currentUser: null,
+    followings: [],
   }),
   getters: {
     isLoggedIn: (state) => !!state.currentUser,
@@ -25,6 +32,17 @@ export const useUserStore = defineStore('user', {
       }
     },
 
+    async fetchFollowing() {
+      try {
+        if (!this.currentUser) return;
+        const response = await getFollowing(this.currentUser.user_id);
+        this.followings = response.followings;
+      } catch (error) {
+        console.error('Error fetching following:', error);
+        this.followings = [];
+      }
+    },
+
     async logout() {
       try {
         await _logout();
@@ -36,6 +54,7 @@ export const useUserStore = defineStore('user', {
 
     async updateProfile(userId: number, data: EditUserInput) {
       try {
+        if (!this.currentUser) return;
         const res = await editUser(userId, data);
         this.currentUser = {
           ...this.currentUser,

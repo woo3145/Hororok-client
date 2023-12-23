@@ -2,7 +2,7 @@
   <div class="w-full max-w-screen-md mx-auto py-12">
     <UserProfileCard />
     <div class="py-12 space-y-4">
-      <div v-for="feed in feeds" :key="feed.feed_id">
+      <div v-for="feed in filteredFeeds" :key="feed.feed_id">
         <FeedItem :feed="feed" />
       </div>
     </div>
@@ -15,6 +15,10 @@ import FeedItem from '@/components/FeedItem.vue';
 import { Feed } from '../types';
 import { getFeeds } from '@/api/feeds';
 import UserProfileCard from '@/components/UserProfileCard.vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const userId = Number(route.params.userId);
 
 const feeds = ref<Feed[]>([
   {
@@ -40,7 +44,7 @@ const feeds = ref<Feed[]>([
     contents: '졸립다',
     createdAt: new Date(),
     user: {
-      user_id: 1,
+      user_id: 2,
       id: '3145',
       name: 'woo3145',
       nickname: 'hhh',
@@ -64,6 +68,8 @@ const fetchFeeds = async () => {
     console.error('Error fetching feeds:', error);
   }
 };
+
+const filteredFeeds = feeds.value.filter((f) => f.user.user_id === userId);
 
 onMounted(fetchFeeds);
 </script>

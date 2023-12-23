@@ -154,7 +154,6 @@ async function onSubmit(event: Event) {
     router.push('/login');
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error);
       errorMessage.value = error.response?.data?.message || '회원가입 실패';
     } else if (error instanceof Error) {
       errorMessage.value = error.message || '회원가입 실패';
