@@ -2,6 +2,9 @@
   <div class="w-full max-w-screen-md mx-auto py-12">
     <UserProfileCard />
     <div class="py-12 space-y-4">
+      <div v-if="filteredFeeds.length === 0" class="py-10 text-center">
+        게시글이 없어요 😢
+      </div>
       <div v-for="feed in filteredFeeds" :key="feed.feed_id">
         <FeedItem :feed="feed" />
       </div>

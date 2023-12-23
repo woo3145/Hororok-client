@@ -3,6 +3,10 @@
     <FeedItem v-if="selectedFeed" :feed="selectedFeed" />
     <div class="py-12 space-y-8">
       <CommentCreator v-if="selectedFeed" :feed-id="selectedFeed.feed_id" />
+
+      <div v-if="comments.length === 0" class="py-10 text-center">
+        댓글이 없어요 😢
+      </div>
       <div v-for="comment in comments" :key="comment.comment_id">
         <CommentItem :comment="comment" />
       </div>
@@ -29,21 +33,6 @@ const comments = ref<Comment[]>([]);
 onMounted(async () => {
   // 선택된 피드와 댓글을 가져옵니다.
   selectedFeed.value = await feedStore.getFeed(feedId.value);
-  comments.value = [
-    {
-      comment_id: 1,
-      contents: 'test',
-      created_at: new Date(),
-      user: {
-        user_id: 1,
-        name: 'hh',
-        id: 'hh',
-        nickname: 'tt',
-        birth: new Date(),
-        gender: 'M',
-      },
-    },
-  ];
-  //  comments.value = await feedStore.getComments(feedId.value);
+  comments.value = await feedStore.getComments(feedId.value);
 });
 </script>

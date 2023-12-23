@@ -73,6 +73,7 @@ const isLiked = computed(() => {
 
 const isOwner =
   userStore.currentUser &&
+  p.feed.user &&
   userStore.currentUser.user_id === p.feed.user.user_id;
 
 const toggleLike = async () => {
