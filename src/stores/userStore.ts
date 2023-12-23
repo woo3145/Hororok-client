@@ -55,7 +55,7 @@ export const useUserStore = defineStore('user', {
     async updateProfile(userId: number, data: EditUserInput) {
       try {
         if (!this.currentUser) return;
-        const res = await editUser(userId, data);
+        await editUser(userId, data);
         this.currentUser = {
           ...this.currentUser,
           name: data.name ?? this.currentUser.name,

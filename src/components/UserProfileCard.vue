@@ -9,7 +9,13 @@
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
 
-      <Button variant="outline" class="rounded-full gap-2">
+      <div
+        v-if="
+          userStore.currentUser &&
+          userStore.currentUser.user_id === user.user_id
+        "
+      ></div>
+      <Button v-else variant="outline" class="rounded-full gap-2">
         <UserIcon class="w-4 h-4" />
         <span>팔로우</span>
       </Button>

@@ -3,19 +3,24 @@
     class="feed-item space-y-4 rounded-md px-6 py-6 bg-background border cursor-pointer"
   >
     <div class="flex items-center gap-4">
-      <Avatar class="shrink-0">
-        <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      <router-link :to="`/users/${feed.user.user_id}`">
+        <Avatar class="shrink-0">
+          <AvatarImage
+            src="https://github.com/radix-vue.png"
+            alt="@radix-vue"
+          />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </router-link>
 
       <div class="w-full flex justify-between">
-        <div class="w-full">
+        <router-link :to="`/users/${feed.user.user_id}`" class="w-full">
           <p class="font-semibold">{{ feed.user?.name }}</p>
           <p class="text-sm text-foreground/60">
             {{ feed.created_at?.toString() }}
           </p>
-        </div>
-        <FeedDropdownMenu :feed="feed" />
+        </router-link>
+        <FeedDropdownMenu :feed="feed" v-if="isOwner" />
       </div>
     </div>
     <p>{{ feed.contents }}</p>
@@ -40,6 +45,10 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import FeedDropdownMenu from './FeedDropdownMenu.vue';
 import { Heart, MessageCircle } from 'lucide-vue-next';
 import { Button } from './ui/button';
+import { useUserStore } from '@/stores/userStore';
+
+const userStore = useUserStore();
+
 const p = defineProps({
   feed: {
     type: Object as () => Feed,
@@ -47,5 +56,7 @@ const p = defineProps({
   },
 });
 
-console.log(p.feed);
+const isOwner =
+  userStore.currentUser &&
+  userStore.currentUser.user_id === p.feed.user.user_id;
 </script>
