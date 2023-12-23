@@ -33,6 +33,21 @@ export const postFeed = async (contents: string) => {
   }
 };
 
+export const editFeed = async (feedId: number, contents: string) => {
+  try {
+    const response = await axios.patch(
+      `${BASE_URL}/${feedId}`,
+      { contents },
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const deleteFeed = async (feedId: number) => {
   try {
     const response = await axios.delete(`${BASE_URL}/${feedId}`, {
@@ -46,7 +61,7 @@ export const deleteFeed = async (feedId: number) => {
 
 export const likeFeed = async (feedId: number) => {
   try {
-    const response = await axios.post(`${BASE_URL}/${feedId}/likes`, {
+    const response = await axios.post(`${BASE_URL}/${feedId}/likes`, null, {
       withCredentials: true,
     });
     return response.data;

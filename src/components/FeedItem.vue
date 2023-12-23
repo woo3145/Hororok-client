@@ -15,7 +15,7 @@
             {{ feed.created_at?.toString() }}
           </p>
         </div>
-        <FeedDropdownMenu :feed-id="feed.feed_id" />
+        <FeedDropdownMenu :feed="feed" />
       </div>
     </div>
     <p>{{ feed.contents }}</p>
