@@ -79,6 +79,15 @@ export const getFollowing = async (userId: number) => {
   }
 };
 
+export const getLikedFeeds = async (userId: number) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/${userId}/liked-feeds`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const followUser = async (fromUserId: number, toUserId: number) => {
   try {
     const response = await axios.post(

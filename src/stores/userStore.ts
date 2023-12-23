@@ -4,6 +4,7 @@ import {
   editUser,
   EditUserInput,
   getFollowing,
+  getLikedFeeds,
 } from '@/api/users';
 import { User } from '@/types';
 import { defineStore } from 'pinia';
@@ -11,12 +12,14 @@ import { defineStore } from 'pinia';
 interface State {
   currentUser: User | null;
   following: User[];
+  likedFeeds: number[];
 }
 
 export const useUserStore = defineStore('user', {
   state: (): State => ({
     currentUser: null,
     following: [],
+    likedFeeds: [],
   }),
   getters: {
     isLoggedIn: (state) => !!state.currentUser,
@@ -40,6 +43,16 @@ export const useUserStore = defineStore('user', {
       } catch (error) {
         console.error('Error fetching following:', error);
         this.following = [];
+      }
+    },
+    async fetchLikedFeeds() {
+      try {
+        if (!this.currentUser) return;
+        const response = await getLikedFeeds(this.currentUser.user_id);
+        this.likedFeeds = response.liked_feeds;
+      } catch (error) {
+        console.error('Error fetching following:', error);
+        this.likedFeeds = [];
       }
     },
 
@@ -74,6 +87,16 @@ export const useUserStore = defineStore('user', {
 
     removeFromFollowing(userId: number) {
       this.following = this.following.filter((u) => u.user_id !== userId);
+    },
+
+    addToLikedFeeds(feedId: number) {
+      if (!this.likedFeeds.includes(feedId)) {
+        this.likedFeeds.push(feedId);
+      }
+    },
+
+    removeFromLikedFeeds(feedId: number) {
+      this.likedFeeds = this.likedFeeds.filter((f) => f !== feedId);
     },
   },
 });

@@ -50,17 +50,18 @@
 
 <script setup lang="ts">
 import { Feed } from '@/types';
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import FeedDropdownMenu from './FeedDropdownMenu.vue';
 import { Heart, MessageCircle } from 'lucide-vue-next';
 import { Button } from './ui/button';
 import { useUserStore } from '@/stores/userStore';
 import { likeFeed, unlikeFeed } from '@/api/feeds';
-import { ref } from 'vue';
 import { formatDate } from '@vueuse/core';
+import { useToast } from './ui/toast';
 
 const userStore = useUserStore();
+const { toast } = useToast();
 
 const p = defineProps({
   feed: {
@@ -68,25 +69,38 @@ const p = defineProps({
     required: true,
   },
 });
-const isLiked = ref(false); // 기본값은 false로 설정
+
+const isLiked = computed(() => {
+  return userStore.likedFeeds?.includes(p.feed.feed_id);
+});
 
 const isOwner =
   userStore.currentUser &&
   userStore.currentUser.user_id === p.feed.user.user_id;
 
 const toggleLike = async () => {
+  if (!userStore.currentUser) {
+    toast({
+      description: '로그인이 필요합니다.',
+      variant: 'destructive',
+    });
+    return;
+  }
   try {
     if (isLiked.value) {
       await unlikeFeed(p.feed.feed_id);
       p.feed.likes_cnt--; // 좋아요 수 감소
-      isLiked.value = false; // 좋아요 상태 업데이트
+      userStore.removeFromLikedFeeds(p.feed.feed_id);
     } else {
       await likeFeed(p.feed.feed_id);
       p.feed.likes_cnt++; // 좋아요 수 증가
-      isLiked.value = true; // 좋아요 상태 업데이트
+      userStore.addToLikedFeeds(p.feed.feed_id);
     }
   } catch (error) {
-    console.error('Error toggling like:', error);
+    toast({
+      description: '서버에 문제가 발생하였습니다.',
+      variant: 'destructive',
+    });
   }
 };
 </script>

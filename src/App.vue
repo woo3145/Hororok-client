@@ -20,6 +20,7 @@ watch(
   () => userStore.currentUser?.user_id,
   () => {
     userStore.fetchFollowing();
+    userStore.fetchLikedFeeds();
   },
   { immediate: true } // 컴포넌트가 마운트되자마자 즉시 실행되도록 설정
 );
@@ -29,6 +30,7 @@ watch(
 onMounted(async () => {
   await userStore.fetchCurrentUser();
   await userStore.fetchFollowing();
+  await userStore.fetchLikedFeeds();
   await feedStore.fetchFeeds();
 });
 </script>
