@@ -18,13 +18,16 @@
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { ref } from 'vue';
-import { postFeed } from '@/api/feeds';
+import { useToast } from './ui/toast';
+import { useFeedStore } from '@/stores/feedStore';
 
 interface FeedData {
   contents: string;
 }
 
+const { toast } = useToast();
 const feedData = ref<FeedData>({ contents: '' });
+const feedStore = useFeedStore();
 
 const submitFeed = async () => {
   if (!feedData.value.contents) {
@@ -33,11 +36,16 @@ const submitFeed = async () => {
   }
 
   try {
-    const response = await postFeed(feedData.value.contents);
-    console.log(response.data);
+    await feedStore.addFeed(feedData.value.contents);
+
     feedData.value.contents = '';
   } catch (error) {
-    console.error('Error posting the feed:', error);
+    if (error instanceof Error) {
+      toast({
+        variant: 'destructive',
+        description: error.message,
+      });
+    }
   }
 };
 </script>

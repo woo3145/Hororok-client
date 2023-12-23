@@ -14,10 +14,8 @@ import Toaster from '@/components/ui/toast/Toaster.vue';
 
 const userStore = useUserStore();
 userStore.fetchCurrentUser();
-userStore.fetchFollowing();
 
 onMounted(async () => {
   await userStore.fetchCurrentUser();
-  await userStore.fetchFollowing();
 });
 </script>

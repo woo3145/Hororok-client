@@ -13,63 +13,20 @@
 import { onMounted, ref } from 'vue';
 import FeedItem from '@/components/FeedItem.vue';
 import { Feed } from '../types';
-import { getFeeds } from '@/api/feeds';
 import UserProfileCard from '@/components/UserProfileCard.vue';
 import { useRoute } from 'vue-router';
+import { useFeedStore } from '@/stores/feedStore';
 
 const route = useRoute();
 const userId = Number(route.params.userId);
 
-const feeds = ref<Feed[]>([
-  {
-    feed_id: 1,
-    contents: 'hihi',
-    createdAt: new Date(),
-    user: {
-      user_id: 1,
-      id: '3145',
-      name: 'woo3145',
-      nickname: 'hhh',
-      birth: new Date(),
-      gender: 'M',
-      followers_cnt: 100000,
-      following_cnt: 100000,
-    },
+const filteredFeeds = ref<Feed[]>([]);
+const feedStore = useFeedStore();
 
-    likes_cnt: 4,
-    comments_cnt: 2,
-  },
-  {
-    feed_id: 2,
-    contents: '졸립다',
-    createdAt: new Date(),
-    user: {
-      user_id: 2,
-      id: '3145',
-      name: 'woo3145',
-      nickname: 'hhh',
-      birth: new Date(),
-      gender: 'M',
-      followers_cnt: 100000,
-      following_cnt: 100000,
-    },
-
-    likes_cnt: 2,
-    comments_cnt: 4,
-  },
-]);
-
-const fetchFeeds = async () => {
-  try {
-    const response = await getFeeds(); // ?user_id=userId
-    throw new Error('임시 에러');
-    feeds.value = response.data.feeds;
-  } catch (error) {
-    console.error('Error fetching feeds:', error);
-  }
-};
-
-const filteredFeeds = feeds.value.filter((f) => f.user.user_id === userId);
-
-onMounted(fetchFeeds);
+onMounted(async () => {
+  await feedStore.fetchFeeds();
+  feedStore.feeds.filter((f) => f.user?.user_id === userId);
+});
 </script>
+
+this.user =

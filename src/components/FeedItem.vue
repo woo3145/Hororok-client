@@ -12,7 +12,7 @@
         <div class="w-full">
           <p class="font-semibold">{{ feed.user?.name }}</p>
           <p class="text-sm text-foreground/60">
-            {{ feed.createdAt?.toString() }}
+            {{ feed.created_at?.toString() }}
           </p>
         </div>
         <FeedDropdownMenu :feed-id="feed.feed_id" />
@@ -27,7 +27,7 @@
       </Button>
       <Button variant="ghost" class="h-10 p-2 gap-1">
         <MessageCircle />
-        <span class="text-sm">4</span>
+        <span class="text-sm">{{ feed.comments_cnt }}</span>
       </Button>
     </div>
   </div>
@@ -40,10 +40,12 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import FeedDropdownMenu from './FeedDropdownMenu.vue';
 import { Heart, MessageCircle } from 'lucide-vue-next';
 import { Button } from './ui/button';
-defineProps({
+const p = defineProps({
   feed: {
     type: Object as () => Feed,
     required: true,
   },
 });
+
+console.log(p.feed);
 </script>

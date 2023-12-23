@@ -15,7 +15,7 @@ export interface Feed {
   feed_id: number;
   contents: string;
   user: User;
-  createdAt: Date;
+  created_at: Date;
 
   likes_cnt: number;
   comments_cnt: number;
