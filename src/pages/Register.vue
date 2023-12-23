@@ -16,8 +16,10 @@
     <div
       class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex"
     >
-      <div class="absolute inset-0 bg-zinc-700">
-        <img src="" alt="" />
+      <div
+        class="absolute inset-0 bg-zinc-900 flex items-center justify-center"
+      >
+        <img src="@/assets/register.png" alt="register img" />
       </div>
     </div>
     <div class="lg:p-8">

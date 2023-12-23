@@ -5,8 +5,8 @@
   <div v-else-if="user" class="space-y-8 p-8 border rounded-md bg-background">
     <div class="flex items-end justify-between gap-4">
       <Avatar class="w-40 h-40">
-        <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarImage src="" alt="profile image" />
+        <AvatarFallback>{{ user.nickname }}</AvatarFallback>
       </Avatar>
 
       <div

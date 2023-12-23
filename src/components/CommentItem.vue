@@ -1,8 +1,8 @@
 <template>
   <div class="flex gap-4">
     <Avatar class="w-10 h-10 border">
-      <AvatarImage :alt="`userProfile`" src="/placeholder-user.jpg" />
-      <AvatarFallback>{{ comment.user?.name }}</AvatarFallback>
+      <AvatarImage :alt="`profile image`" src="" />
+      <AvatarFallback>{{ comment.user?.nickname }}</AvatarFallback>
     </Avatar>
     <div class="grid gap-1.5 w-full">
       <div class="flex items-center gap-2">

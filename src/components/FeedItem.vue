@@ -5,17 +5,14 @@
     <div class="flex items-center gap-4">
       <router-link :to="`/users/${feed.user?.user_id}`">
         <Avatar class="shrink-0">
-          <AvatarImage
-            src="https://github.com/radix-vue.png"
-            alt="@radix-vue"
-          />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src="" alt="profile image" />
+          <AvatarFallback>{{ feed.user?.nickname }}</AvatarFallback>
         </Avatar>
       </router-link>
 
       <div class="w-full flex justify-between">
         <router-link :to="`/users/${feed.user?.user_id}`" class="w-full">
-          <p class="font-semibold">{{ feed.user?.name }}</p>
+          <p class="font-semibold">{{ feed.user?.nickname }}</p>
           <p v-if="feed.created_at" class="text-sm text-foreground/60">
             {{ formatDate(new Date(feed.created_at), 'YYYY-MM-DD HH:mm:ss') }}
           </p>

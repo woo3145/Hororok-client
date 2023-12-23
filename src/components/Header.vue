@@ -9,11 +9,8 @@
     <DropdownMenu v-if="userStore.currentUser">
       <DropdownMenuTrigger class="flex">
         <Avatar>
-          <AvatarImage
-            src="https://github.com/radix-vue.png"
-            alt="@radix-vue"
-          />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src="" alt="profile image" />
+          <AvatarFallback>{{ userStore.currentUser.nickname }}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent class="w-56" align="end">
