@@ -8,7 +8,7 @@
       <div class="flex items-center gap-2">
         <div class="font-semibold">@{{ comment.user?.nickname }}</div>
         <div class="text-gray-500 text-xs dark:text-gray-400">
-          {{ comment.created_at.toString() }}
+          {{ formatDate(new Date(comment.created_at), 'YYYY-MM-DD HH:mm:ss') }}
         </div>
       </div>
       <div>{{ comment.contents }}</div>
@@ -21,6 +21,7 @@ import Avatar from '@/components/ui/avatar/Avatar.vue';
 import AvatarImage from '@/components/ui/avatar/AvatarImage.vue';
 import AvatarFallback from '@/components/ui/avatar/AvatarFallback.vue';
 import { Comment } from '@/types';
+import { formatDate } from '@vueuse/core';
 
 defineProps({
   comment: {

@@ -16,8 +16,8 @@
       <div class="w-full flex justify-between">
         <router-link :to="`/users/${feed.user?.user_id}`" class="w-full">
           <p class="font-semibold">{{ feed.user?.name }}</p>
-          <p class="text-sm text-foreground/60">
-            {{ feed.created_at?.toString() }}
+          <p v-if="feed.created_at" class="text-sm text-foreground/60">
+            {{ formatDate(new Date(feed.created_at), 'YYYY-MM-DD HH:mm:ss') }}
           </p>
         </router-link>
         <FeedDropdownMenu :feed="feed" v-if="isOwner" />
@@ -58,6 +58,7 @@ import { Button } from './ui/button';
 import { useUserStore } from '@/stores/userStore';
 import { likeFeed, unlikeFeed } from '@/api/feeds';
 import { ref } from 'vue';
+import { formatDate } from '@vueuse/core';
 
 const userStore = useUserStore();
 
