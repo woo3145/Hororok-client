@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}/auth`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
 interface LoginInput {
   id: string;
@@ -17,6 +17,7 @@ export const login = async ({ id, password }: LoginInput) => {
       },
       { withCredentials: true }
     );
+    console.log(response);
     return response.data;
   } catch (error) {
     throw error;
@@ -41,14 +42,19 @@ export const register = async ({
   gender,
 }: RegisterInput) => {
   try {
-    const response = await axios.post(`${BASE_URL}/register`, {
-      id,
-      pw: password,
-      name,
-      nickname,
-      birth,
-      gender,
-    });
+    const response = await axios.post(
+      `${BASE_URL}/register`,
+      {
+        id,
+        pw: password,
+        name,
+        nickname,
+        birth,
+        gender,
+      },
+      { withCredentials: true }
+    );
+    console.log(response);
     return response.data;
   } catch (error) {
     throw error;
