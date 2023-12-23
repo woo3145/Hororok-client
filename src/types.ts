@@ -7,8 +7,8 @@ export interface User {
   birth: Date;
   gender: string;
 
-  followers_cnt: number;
-  following_cnt: number;
+  followers_cnt?: number;
+  following_cnt?: number;
 }
 
 export interface Feed {
@@ -19,4 +19,11 @@ export interface Feed {
 
   likes_cnt: number;
   comments_cnt: number;
+}
+
+export interface Comment {
+  comment_id: number;
+  contents: string;
+  user: User;
+  created_at: Date;
 }

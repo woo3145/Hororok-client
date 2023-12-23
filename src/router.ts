@@ -21,6 +21,11 @@ const routes = [
     name: 'UserProfile',
     component: () => import('./pages/UserProfile.vue'),
   },
+  {
+    path: '/feeds/:feedId',
+    name: 'FeedDetail',
+    component: () => import('./pages/FeedDetail.vue'),
+  },
 ];
 
 const router = createRouter({

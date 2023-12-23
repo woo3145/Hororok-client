@@ -3,7 +3,7 @@
     class="feed-item space-y-4 rounded-md px-6 py-6 bg-background border cursor-pointer"
   >
     <div class="flex items-center gap-4">
-      <router-link :to="`/users/${feed.user.user_id}`">
+      <router-link :to="`/users/${feed.user?.user_id}`">
         <Avatar class="shrink-0">
           <AvatarImage
             src="https://github.com/radix-vue.png"
@@ -14,7 +14,7 @@
       </router-link>
 
       <div class="w-full flex justify-between">
-        <router-link :to="`/users/${feed.user.user_id}`" class="w-full">
+        <router-link :to="`/users/${feed.user?.user_id}`" class="w-full">
           <p class="font-semibold">{{ feed.user?.name }}</p>
           <p class="text-sm text-foreground/60">
             {{ feed.created_at?.toString() }}
@@ -23,17 +23,22 @@
         <FeedDropdownMenu :feed="feed" v-if="isOwner" />
       </div>
     </div>
-    <p>{{ feed.contents }}</p>
+
+    <router-link :to="`/feeds/${feed.feed_id}`">
+      <p class="w-full py-2">{{ feed.contents }}</p>
+    </router-link>
 
     <div class="flex items-center gap-2">
       <Button variant="ghost" class="h-10 p-2 gap-1">
         <Heart />
         <span class="text-sm">{{ feed.likes_cnt }}</span>
       </Button>
-      <Button variant="ghost" class="h-10 p-2 gap-1">
-        <MessageCircle />
-        <span class="text-sm">{{ feed.comments_cnt }}</span>
-      </Button>
+      <router-link :to="`/feeds/${feed.feed_id}`">
+        <Button variant="ghost" class="h-10 p-2 gap-1">
+          <MessageCircle />
+          <span class="text-sm">{{ feed.comments_cnt }}</span>
+        </Button>
+      </router-link>
     </div>
   </div>
 </template>

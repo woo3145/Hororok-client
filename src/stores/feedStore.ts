@@ -1,8 +1,14 @@
 // stores/feeds.ts
 import { defineStore } from 'pinia';
 import { Feed } from '../types';
-import { deleteFeed as _deleteFeed, getFeeds, postFeed } from '@/api/feeds';
+import {
+  deleteFeed as _deleteFeed,
+  getFeed,
+  getFeeds,
+  postFeed,
+} from '@/api/feeds';
 import { AxiosError } from 'axios';
+import { getComments as _getComments } from '@/api/comments';
 
 export const useFeedStore = defineStore('feeds', {
   state: () => ({
@@ -42,6 +48,23 @@ export const useFeedStore = defineStore('feeds', {
           }
         }
         throw new Error('서버에 문제가 발생하였습니다.');
+      }
+    },
+
+    async getFeed(feedId: number) {
+      try {
+        const response = await getFeed(feedId);
+        return response.feed;
+      } catch (error) {
+        console.error('Error fetching feeds:', error);
+      }
+    },
+    async getComments(feedId: number) {
+      try {
+        const response = await _getComments(feedId);
+        return response.comments;
+      } catch (error) {
+        console.error('Error fetching feeds:', error);
       }
     },
   },
