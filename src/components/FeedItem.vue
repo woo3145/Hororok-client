@@ -29,12 +29,17 @@
     </router-link>
 
     <div class="flex items-center gap-2">
-      <Button variant="ghost" class="h-10 p-2 gap-1">
+      <Button
+        @click="toggleLike"
+        type="button"
+        variant="ghost"
+        class="h-10 p-2 gap-1"
+      >
         <Heart />
         <span class="text-sm">{{ feed.likes_cnt }}</span>
       </Button>
       <router-link :to="`/feeds/${feed.feed_id}`">
-        <Button variant="ghost" class="h-10 p-2 gap-1">
+        <Button type="button" variant="ghost" class="h-10 p-2 gap-1">
           <MessageCircle />
           <span class="text-sm">{{ feed.comments_cnt }}</span>
         </Button>
@@ -51,6 +56,8 @@ import FeedDropdownMenu from './FeedDropdownMenu.vue';
 import { Heart, MessageCircle } from 'lucide-vue-next';
 import { Button } from './ui/button';
 import { useUserStore } from '@/stores/userStore';
+import { likeFeed, unlikeFeed } from '@/api/feeds';
+import { ref } from 'vue';
 
 const userStore = useUserStore();
 
@@ -60,8 +67,25 @@ const p = defineProps({
     required: true,
   },
 });
+const isLiked = ref(false); // 기본값은 false로 설정
 
 const isOwner =
   userStore.currentUser &&
   userStore.currentUser.user_id === p.feed.user.user_id;
+
+const toggleLike = async () => {
+  try {
+    if (isLiked.value) {
+      await unlikeFeed(p.feed.feed_id);
+      p.feed.likes_cnt--; // 좋아요 수 감소
+      isLiked.value = false; // 좋아요 상태 업데이트
+    } else {
+      await likeFeed(p.feed.feed_id);
+      p.feed.likes_cnt++; // 좋아요 수 증가
+      isLiked.value = true; // 좋아요 상태 업데이트
+    }
+  } catch (error) {
+    console.error('Error toggling like:', error);
+  }
+};
 </script>
