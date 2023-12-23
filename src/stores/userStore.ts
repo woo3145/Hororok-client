@@ -10,13 +10,13 @@ import { defineStore } from 'pinia';
 
 interface State {
   currentUser: User | null;
-  followings: User[] | null;
+  following: User[];
 }
 
 export const useUserStore = defineStore('user', {
   state: (): State => ({
     currentUser: null,
-    followings: [],
+    following: [],
   }),
   getters: {
     isLoggedIn: (state) => !!state.currentUser,
@@ -36,10 +36,10 @@ export const useUserStore = defineStore('user', {
       try {
         if (!this.currentUser) return;
         const response = await getFollowing(this.currentUser.user_id);
-        this.followings = response.followings;
+        this.following = response.following;
       } catch (error) {
         console.error('Error fetching following:', error);
-        this.followings = [];
+        this.following = [];
       }
     },
 
@@ -64,6 +64,16 @@ export const useUserStore = defineStore('user', {
           gender: data.gender ?? this.currentUser.gender,
         };
       } catch (e) {}
+    },
+
+    addToFollowing(user: User) {
+      if (!this.following.some((u) => u.user_id === user.user_id)) {
+        this.following.push(user);
+      }
+    },
+
+    removeFromFollowing(userId: number) {
+      this.following = this.following.filter((u) => u.user_id !== userId);
     },
   },
 });

@@ -11,13 +11,8 @@
 
 <script setup lang="ts">
 import FeedCreator from '@/components/FeedCreator.vue';
-import { onMounted } from 'vue';
 import FeedItem from '@/components/FeedItem.vue';
 import { useFeedStore } from '@/stores/feedStore';
 
 const feedStore = useFeedStore();
-
-onMounted(() => {
-  feedStore.fetchFeeds();
-});
 </script>

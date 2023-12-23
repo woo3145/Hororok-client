@@ -81,8 +81,9 @@ export const getFollowing = async (userId: number) => {
 
 export const followUser = async (fromUserId: number, toUserId: number) => {
   try {
-    const response = await axios.get(
+    const response = await axios.post(
       `${BASE_URL}/${fromUserId}/follows/${toUserId}`,
+      null,
       { withCredentials: true }
     );
     return response.data;
