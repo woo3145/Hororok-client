@@ -5,9 +5,9 @@
     </AlertDialogTrigger>
     <AlertDialogContent>
       <AlertDialogHeader>
-        <AlertDialogTitle>정말로 피드를 삭제 하시겠습니까?</AlertDialogTitle>
+        <AlertDialogTitle>정말로 댓글을 삭제 하시겠습니까?</AlertDialogTitle>
         <AlertDialogDescription>
-          이 작업은 취소할 수 없으며, 피드, 댓글, 좋아요 등 완전히 삭제됩니다.
+          이 작업은 취소할 수 없으며, 서버에서 완전히 삭제됩니다.
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
@@ -31,15 +31,14 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { useToast } from '../ui/toast';
-import { useFeedStore } from '@/stores/feedStore';
+import { deleteComment } from '@/api/comments';
 import { useRouter } from 'vue-router';
 
-const feedStore = useFeedStore();
 const { toast } = useToast();
 const router = useRouter();
 
 const props = defineProps({
-  feedId: {
+  commentId: {
     type: Number,
     required: true,
   },
@@ -47,9 +46,9 @@ const props = defineProps({
 
 const handleDelete = async () => {
   try {
-    await feedStore.deleteFeed(props.feedId);
+    await deleteComment(props.commentId);
     toast({
-      description: '성공적으로 피드를 삭제하였습니다.',
+      description: '성공적으로 댓글을 삭제하였습니다.',
     });
     router.go(0);
   } catch (e) {
