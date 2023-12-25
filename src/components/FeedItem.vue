@@ -32,7 +32,8 @@
         variant="ghost"
         class="h-10 p-2 gap-1"
       >
-        <Heart />
+        <Heart v-if="isLiked" class="text-red-500" />
+        <Heart v-else />
         <span class="text-sm">{{ feed.likes_cnt }}</span>
       </Button>
       <router-link :to="`/feeds/${feed.feed_id}`">
@@ -47,7 +48,7 @@
 
 <script setup lang="ts">
 import { Feed } from '@/types';
-import { computed, defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import FeedDropdownMenu from './FeedDropdownMenu.vue';
 import { Heart, MessageCircle } from 'lucide-vue-next';
@@ -67,9 +68,8 @@ const p = defineProps({
   },
 });
 
-const isLiked = computed(() => {
-  return userStore.likedFeeds?.includes(p.feed.feed_id);
-});
+const isLiked = ref(userStore.likedFeeds?.includes(p.feed.feed_id));
+const isLoading = ref(false);
 
 const isOwner =
   userStore.currentUser &&
@@ -77,21 +77,25 @@ const isOwner =
   userStore.currentUser.user_id === p.feed.user.user_id;
 
 const toggleLike = async () => {
-  if (!userStore.currentUser) {
-    toast({
-      description: '로그인이 필요합니다.',
-      variant: 'destructive',
-    });
-    return;
-  }
   try {
+    if (isLoading.value) return;
+    isLoading.value = true;
+    if (!userStore.currentUser) {
+      toast({
+        description: '로그인이 필요합니다.',
+        variant: 'destructive',
+      });
+      return;
+    }
     if (isLiked.value) {
-      await unlikeFeed(p.feed.feed_id);
+      isLiked.value = false;
       p.feed.likes_cnt--; // 좋아요 수 감소
+      await unlikeFeed(p.feed.feed_id);
       userStore.removeFromLikedFeeds(p.feed.feed_id);
     } else {
-      await likeFeed(p.feed.feed_id);
+      isLiked.value = true;
       p.feed.likes_cnt++; // 좋아요 수 증가
+      await likeFeed(p.feed.feed_id);
       userStore.addToLikedFeeds(p.feed.feed_id);
     }
   } catch (error) {
@@ -99,6 +103,8 @@ const toggleLike = async () => {
       description: '서버에 문제가 발생하였습니다.',
       variant: 'destructive',
     });
+  } finally {
+    isLoading.value = false;
   }
 };
 </script>
