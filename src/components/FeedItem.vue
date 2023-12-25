@@ -32,13 +32,14 @@
         variant="ghost"
         class="h-10 p-2 gap-1"
       >
-        <Heart v-if="isLiked" class="text-red-500" />
+        <Heart v-if="isLiked" class="text-primary" />
         <Heart v-else />
         <span class="text-sm">{{ feed.likes_cnt }}</span>
       </Button>
       <router-link :to="`/feeds/${feed.feed_id}`">
         <Button type="button" variant="ghost" class="h-10 p-2 gap-1">
-          <MessageCircle />
+          <MessageCircle v-if="0 < p.feed.comments_cnt" class="text-blue-500" />
+          <MessageCircle v-else />
           <span class="text-sm">{{ feed.comments_cnt }}</span>
         </Button>
       </router-link>
