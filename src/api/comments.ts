@@ -26,9 +26,13 @@ export const postComment = async (feedId: number, contents: string) => {
 
 export const editComment = async (commentId: number, contents: string) => {
   try {
-    const response = await axios.patch(`${BASE_URL}/comments/${commentId}`, {
-      contents,
-    });
+    const response = await axios.patch(
+      `${BASE_URL}/comments/${commentId}`,
+      {
+        contents,
+      },
+      { withCredentials: true }
+    );
     return response.data;
   } catch (error) {
     throw error;
