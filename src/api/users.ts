@@ -81,7 +81,9 @@ export const getFollowing = async (userId: number) => {
 
 export const getLikedFeeds = async (userId: number) => {
   try {
-    const response = await axios.get(`${BASE_URL}/${userId}/liked-feeds`);
+    const response = await axios.get(`${BASE_URL}/${userId}/liked-feeds`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     throw error;
